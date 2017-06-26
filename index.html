@@ -1,16 +1,35 @@
 <html ng-app="app" >
   <head>
     <meta charset="utf-8">
-    <script src="./scripts/angular.min.js"></script>
+    <script src="./scripts/angular.js"></script>
     <script src="./scripts/schema.js"></script>
     <script src="./scripts/app.js"></script>
+    <script src="./scripts/angular-ui-bootstrap-modal.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.css" />
   </head>
   <body ng-controller="jeopardyController">
     <table>
-      <tr ng-repeat="category in categories">
-        <td>{{category.name}}</td>
-        <td ng-repeat="cost in costs">{{getQuestion(category, cost)}}</td>
+      <tr ng-repeat="item in board">
+        <td>
+          {{item.category}}
+        </td>
+        <td style="min-width=120px;" ng-repeat="question in item.questions" ng-click="showQuestion($parent.$index, $index)">
+          {{question.isActive ? question.cost : ""}}
+        </td>
       </tr>
     </table>
+
+    <div modal="showModal" close="cancel()">
+        <div class="modal-header">
+            <h4>{{currentQuestion.category}} {{currentQuestion.cost}}</h4>
+        </div>
+        <div class="modal-body">
+            <p>{{currentQuestion.question}}</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-success" ng-click="ok()">Okay</button>
+        </div>
+      </div>
+
   </body>
 </html>
