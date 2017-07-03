@@ -1,16 +1,16 @@
 <html ng-app="app" >
   <head>
     <meta charset="utf-8">
-    <script src="./scripts/angular.js"></script>
-    <script src="./scripts/schema.js"></script>
-    <script src="./scripts/app.js"></script>
-    <script src="./scripts/angular-ui-bootstrap-modal.js"></script>
-    <script src="./scripts/socket.io.min.js"></script>
-    <script src="./scripts/socket.min.js"></script>
-    <link rel="stylesheet" href="./scripts/bootstrap.css" />
+    <script type="text/javascript" src="scripts/angular.js"></script>
+    <script type="text/javascript" src="scripts/schema.js"></script>
+    <script type="text/javascript" src="scripts/app.js"></script>
+    <script type="text/javascript" src="scripts/angular-ui-bootstrap-modal.js"></script>
+    <script type="text/javascript" src="scripts/socket.io.min.js"></script>
+    <script type="text/javascript" src="scripts/socket.min.js"></script>
+    <link rel="stylesheet" href="scripts/bootstrap.css" />
   </head>
   <body ng-controller="jeopardyController">
-    <table>
+    <table ng-show="isMainBoard">
       <tr ng-repeat="item in board">
         <td>
           {{item.category}}
@@ -30,6 +30,31 @@
         </div>
         <div class="modal-footer">
           <button class="btn btn-success" ng-click="ok()">Okay</button>
+        </div>
+    </div>
+
+    <div modal="showLogin">
+        <div class="modal-header">
+            <h4>Welcome back, comrade!</h4>
+        </div>
+        <div class="modal-body">
+            <input type="text" ng-model="teamName"/>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-success" ng-click="login(teamName)">Okay</button>
+        </div>
+    </div>
+    <div modal="waitForStart">
+        <p>Please wait a while...</p>
+    </div>
+
+    <div ng-show="showStartButton">
+      <input type="button" ng-click="startGame()">Let the battle begin!</input>
+    </div>
+
+    <div ng-show="!isMainBoard && !waitForStart">
+        <div>
+            <input type="button" ng-click="push_button()">I KNOW THE ANSWER!!!</input>
         </div>
     </div>
   </body>
