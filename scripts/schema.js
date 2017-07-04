@@ -4,9 +4,13 @@ window.board = [
     questions: [
         {
           cost: 100,
-          question: 'Внешняя политика Черногории.',
-          questionType: 'text',
-          answer: null,
+          question: 'Поняв, в чём заключается внешняя политика Черногории, скажите, что мы скрыли на фото.',
+          type: 'img',
+          media: 'media/alex_censored.png',
+          answer: {
+            type: 'img',
+            media: 'media/alex.jpg'
+          },
           isActive: true
         },
         {

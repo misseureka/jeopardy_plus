@@ -16,6 +16,7 @@
         <div class="column column-category">
           {{item.category}}
         </div>
+        <!-- TODO: angular - disable div, not fieldset -->
         <fieldset class="column column-question" ng-repeat="question in item.questions"
                 ng-click="showQuestion($parent.$index, $index)" ng-disabled="!question.isActive">
           {{question.isActive? question.cost : ""}}
@@ -28,6 +29,9 @@
             <h4>{{currentQuestion.category}} {{currentQuestion.cost}}</h4>
         </div>
         <div class="modal-body">
+            <div ng-show="currentQuestion.type=='img'">
+              <img ng-src="{{currentQuestion.media}}" />
+            </div>
             <p>{{currentQuestion.question}}</p>
         </div>
         <div class="modal-footer">
@@ -40,8 +44,23 @@
           <div ng-show="!currentPlayer">
               <button class="btn btn-default" ng-click="answer(null, 0, null)">Нет ответа</button>
           </div>
-          </div>
+        </div>
     </div>
+
+    <div modal="showAnswerModal" close="cancel()">
+        <div class="modal-header">
+          <h4>Ответ</h4>
+        </div>
+        <div class="modal-body">
+          <div ng-show="currentAnswer.type=='img'">
+            <img ng-src="{{currentAnswer.media}}" />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-default" ng-click="hideAnswer()">Такие дела</button>
+        </div>
+    </div>
+
 
     <div modal="showLogin">
         <div class="modal-header">

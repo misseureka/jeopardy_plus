@@ -20,6 +20,7 @@
     $scope.isMainBoard = false;
     $scope.isPlayer = false;
     $scope.showQuestionModal = false;
+    $scope.showAnswerModal = false;
     $scope.gameRunning = false;
 
     JeoSocket.on('connect', () => {
@@ -78,15 +79,29 @@
       JeoSocket.emit('question_active', true);
     };
 
+    var showAnswer = (answer) => {
+      $scope.currentAnswer = answer;
+      $scope.showAnswerModal = true;
+    };
+
+    $scope.hideAnswer = () => {
+      $scope.CurrentAnswer = null;
+      $scope.showAnswerModal = false;
+    };
+
     $scope.answer = (currentPlayer, questionScore, correct) => {
       if (correct === null && questionScore === 0 && currentPlayer == null) {
           console.log('Nobody knows...');
           JeoSocket.emit('question_answered', {'currentScore': 0, 'currentPlayer': null, 'currentSid': null});
           $scope.currentScore = 0;
           $scope.currentPlayer = null;
+          var answer = $scope.currentQuestion.answer;
           $scope.currentQuestion = null;
           $scope.showQuestionModal = false;
           JeoSocket.emit('question_active', false);
+          if (answer){
+            showAnswer(answer);
+          }
       } else {
           console.log('Got the answer');
           var score = correct? questionScore : -1 * questionScore;

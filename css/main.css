@@ -9,6 +9,10 @@
   display: flex;
 }
 
+.app-modal-window .modal-dialog {
+  width: 500px;
+}
+
 .category-row:last-child{
   border-bottom: 1px solid #000;
 }
