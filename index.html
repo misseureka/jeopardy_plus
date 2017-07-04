@@ -7,21 +7,23 @@
     <script type="text/javascript" src="scripts/angular-ui-bootstrap-modal.js"></script>
     <script type="text/javascript" src="scripts/socket.io.min.js"></script>
     <script type="text/javascript" src="scripts/socket.min.js"></script>
-    <link rel="stylesheet" href="scripts/bootstrap.css" />
+    <link rel="stylesheet" href="css/bootstrap.css" />
+    <link rel="stylesheet" href="css/main.css" />
   </head>
   <body ng-controller="jeopardyController">
-    <table ng-show="isMainBoard">
-      <tr ng-repeat="item in board">
-        <td>
+    <div ng-show="isMainBoard" class="board">
+      <div ng-repeat="item in board" class="category-row">
+        <div class="column column-category">
           {{item.category}}
-        </td>
-        <td ng-repeat="question in item.questions" ng-click="showQuestion($parent.$index, $index)">
+        </div>
+        <fieldset class="column column-question" ng-repeat="question in item.questions"
+                ng-click="showQuestion($parent.$index, $index)" ng-disabled="!question.isActive">
           {{question.isActive? question.cost : ""}}
-        </td>
-      </tr>
-    </table>
+        </fieldset>
+      </div>
+    </div>
 
-    <div modal="showModal" close="cancel()">
+    <div modal="showQuestionModal" close="cancel()">
         <div class="modal-header">
             <h4>{{currentQuestion.category}} {{currentQuestion.cost}}</h4>
         </div>
@@ -29,33 +31,55 @@
             <p>{{currentQuestion.question}}</p>
         </div>
         <div class="modal-footer">
-          <button class="btn btn-success" ng-click="ok()">Okay</button>
-        </div>
+          <p>Отвечает...</p>
+          <p>{{currentPlayer}}</p>
+          <div ng-show="!!currentPlayer">
+              <button class="btn btn-success" ng-click="answer(currentPlayer, currentQuestion.cost, true)">Это правильный ответ!</button>
+              <button class="btn btn-danger" ng-click="answer(currentPlayer, currentQuestion.cost, false)">А это нет :-(</button>
+          </div>
+          <div ng-show="!currentPlayer">
+              <button class="btn btn-default" ng-click="answer(null, 0, null)">Нет ответа</button>
+          </div>
+          </div>
     </div>
 
     <div modal="showLogin">
         <div class="modal-header">
-            <h4>Welcome back, comrade!</h4>
+            <h4>Имя команды</h4>
         </div>
         <div class="modal-body">
             <input type="text" ng-model="teamName"/>
         </div>
         <div class="modal-footer">
-          <button class="btn btn-success" ng-click="login(teamName)">Okay</button>
+          <button class="btn btn-success" ng-click="login(teamName)">"Это имя нашей команды</button>
         </div>
     </div>
     <div modal="waitForStart">
-        <p>Please wait a while...</p>
+        <p>Ожидаем...</p>
     </div>
 
-    <div ng-show="showStartButton">
-      <input type="button" ng-click="startGame()">Let the battle begin!</input>
+    <div modal="showStartButton">
+      <div class="modal-body">
+        <button type="button" ng-click="startGame()" class="btn btn-success">Let the battle begin!</button>
+      </div>
     </div>
 
-    <div ng-show="!isMainBoard && !waitForStart">
+    <div ng-show="isPlayer && !showLogin && (!waitForStart || gameRunning)">
         <div>
-            <input type="button" ng-click="push_button()">I KNOW THE ANSWER!!!</input>
+          {{teamName}}
+        </div>
+        <div>
+            <button type="button" ng-click="push_button()" class="btn btn-success">Есть ответ</button>
+        </div>
+        <div>
+            <p>Ваш счёт: {{playerTotal}}</p>
         </div>
     </div>
+    <footer ng-show="isMainBoard" class="footer">
+      <div><p>СЧЁТ</p></div>
+      <div ng-repeat="player in players">
+          {{player.name}} - {{player.score}}
+      </div>
+    </footer>
   </body>
 </html>
