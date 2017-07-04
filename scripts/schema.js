@@ -1,129 +1,220 @@
 window.board = [
   {
-    category: "Издевательская тема",
+    category: "События и места",
     questions: [
         {
           cost: 100,
-          question: 'Поняв, в чём заключается внешняя политика Черногории, скажите, что мы скрыли на фото.',
+          question: 'На этой станции метро раньше жили Ж и Н',
+          type: 'text',
+          answer: null,
+          isActive: true
+        },
+        {
+          cost: 200,
+          question: 'Именно столько лет Ж и Н живут в СПб',
+          type: 'text',
+          answer: null,
+          isActive: true
+        },
+        {
+          cost: 300,
+          question: 'А. и Т. однажды съездили туда, пусть и не на недельку, но тем не менее получили массу неоднозначных воспоминаний."',
+          type: 'text',
+          answer: {
+            type: 'img',
+            media: 'media/comarovo.jpg',
+          },
+          isActive: true
+        },
+        {
+          cost: 400,
+          question: 'Что мы скрыли на фотографии?',
           type: 'img',
-          media: 'media/alex_censored.png',
+          media: 'media/tatyana_paris_censored.jpg',
           answer: {
             type: 'img',
-            media: 'media/alex.jpg'
-          },
-          isActive: true
-        },
-        {
-          cost: 200,
-          question: 'Нефирменный вагон фирменного поезда.',
-          questionType: 'text',
-          answer: {
-            type: 'img',
-            source: './data/images/1_200'
-          },
-          isActive: true
-        },
-        {
-          cost: 300,
-          question: 'Шуточная просьба.',
-          questionType: 'text',
-          answer: null,
-          isActive: true
-        },
-        {
-          cost: 400,
-          question: 'Сложная ситуация, связанная с отношениями с людьми.',
-          questionType: 'text',
-          answer: {
-            type: 'video',
-            source: './data/video/1_400'
+            media: 'media/tatyana_paris.jpg'
           },
           isActive: true
         },
         {
           cost: 500,
-          question: 'Дом для уточки.',
-          questionType: 'text',
+          question: 'Именно в этот город состоялось самое первое совместное путешествие А. и Т.',
+          type: 'text',
           answer: null,
           isActive: true
         }
     ]
   },
   {
-    category: "Вопросы без ответов",
+    category: "Кино и Литература",
     questions: [
         {
           cost: 100,
-          question: 'Игристое на завтрак.',
-          questionType: 'text',
-          answer: null,
+          question: 'Танюша лично знакома с этим писателем. Ну как писателем? Просто человеком, который пишет буквы, которые потом становятся словами, которые читают люди.',
+          type: 'text',
+          answer: {
+            type: 'mp4',
+            media: 'media/grishkovets_fucks_mind.mp4'
+          },
           isActive: true
         },
         {
           cost: 200,
-          question: 'Субботняя поездка к морю.',
-          questionType: 'text',
+          question: 'А. утверждает, что онажды, возможно, лично видел этого писателя. Но это не точно. Назовите писателя',
+          type: 'text',
           answer: null,
           isActive: true
         },
         {
           cost: 300,
-          question: 'Маленькая бетономешалка.',
-          questionType: 'text',
+          question: 'Этот фильм Ж постоянно цитирует. Назовите один из любимых цветов Н.',
+          type: 'text',
           answer: null,
           isActive: true
         },
         {
           cost: 400,
-          question: 'Хорошая шутка, над которой не посмеялись.',
-          questionType: 'text',
-          answer: null,
+          question: 'Книга с автографом этого рок-музыканта есть в библиотеке Алексея. Кстати, про Таню (про другую) у него есть песня, правда немного трагичная',
+          type: 'text',
+          answer: {
+            type: 'mp4',
+            media: 'media/crem_tanya.mp4'
+          },
           isActive: true
         },
         {
           cost: 500,
-          question: 'Футболка с изображением хорошей рок-группы.',
-          questionType: 'text',
-          answer: null,
+          question: 'Оказывается, ТАКИМИ бывают спички, чтения, фильмы, лыжи и даже пельмени. Назовите любой ТАКИХ фильмов.',
+          type: 'text',
+          answer: {
+            type: 'img',
+            media: 'media/everything_is_balabanovskoe.jpg'
+          },
           isActive: true
         }
     ]
   },
   {
-    category: "Автор, убей себя!",
+    category: "Верю-Не верю",
+      questions: [
+        {
+          cost: 100,
+          question: 'Алексей однажды совершил путешествие автостопом протяженностью примерно равной радиусу Земли, за один раз',
+          type: 'text',
+          answer: null,
+          isActive: true
+        },
+        {
+          cost: 100,
+          question: 'Танюша стала главной, и в какой-то степени ЗаГлавной героиней кинофильма.',
+          type: 'text',
+          answer: null,
+          isActive: true
+        },
+        {
+          cost: 100,
+          question: 'Ж и Н в начале знакомства (обыграть хакерскую тему) выкладывали в сеть видеоклип и любовной связи Сами Знаете Кого с Сами Знаете Кем.',
+          type: 'text',
+          answer: null,
+          isActive: true
+        },
+        {
+          cost: 100,
+          question: 'Ж и Н учинили акт вандализма с окном бара',
+          type: 'text',
+          answer: null,
+          isActive: true
+        },
+        {
+          cost: 100,
+          question: 'Ж и Н провозили наркотики (лёгкие!) через границу',
+          type: 'text',
+          answer: null,
+          isActive: true
+        },
+    ]
+  },
+  {
+    category: "Странности",
+    questions: [
+      {
+        cost: 100,
+        question: 'Несмотря на такое неприятное происшествие, Танюша успешно сдала экзамен на водительские права.',
+        type: 'text',
+        answer: null,
+        isActive: true
+      },
+      {
+        cost: 200,
+        question: 'Как ни странно, но Ж предпочитает именно такую разновидность театров',
+        type: 'text',
+        answer: null,
+        isActive: true
+      },
+      {
+        cost: 300,
+        question: 'Что мы скрыли на фотографии?',
+        type: 'img',
+        media: 'media/alex_censored.png',
+        answer: {
+          type: 'img',
+          media: 'media/alex.jpg'
+        },
+        isActive: true
+      },
+      {
+        cost: 400,
+        question: 'Несмотря на то, что Танюша ненавидит ПЕТЬ ФАЛЬЦЕТОМ, как ни странно, она работала помощником юриста и даже в колл-центре авиакампании. Какие два слова мы заменили на "ПЕТЬ ФАЛЬЦЕТОМ"?',
+        type: 'text',
+        answer: null,
+        isActive: true
+      },
+      {
+        cost: 500,
+        question: 'Если это не последний вопрос игры, то, как ни странно, ваша команда только что получила 500 очков. Потому что мы можем!',
+        type: 'text',
+        answer: null,
+        isActive: true
+      },
+    ]
+  },
+  {
+    category: "Свадебная ЖЕСТЬ 18+",
     questions: [
         {
           cost: 100,
-          question: 'Ситуация только с неприятными исходами.',
-          questionType: 'text',
+          question: 'Невеста и жених оба ненавидят эту песню про свадьбу. Хочется считать, что ненавидят эту песню и небо и земля. А первым спел её Муслим Магамаев. Напойте эту песню.',
+          type: 'text',
           answer: null,
           isActive: true
         },
         {
           cost: 200,
-          question: 'Краткий дневной сон (не более 10 минут).',
-          questionType: 'text',
+          question: 'Телесериал ""Симпсоны"", как известно, содержит множество ""пасхалок"". Так, например, на изображении можно увидеть отсылку к картине художника Пукирева. Как называется картина?',
+          type: 'img',
+          media: 'media/simpsons.png',
           answer: null,
           isActive: true
         },
         {
           cost: 300,
-          question: 'Милиционер, не повышенный в должности',
-          questionType: 'text',
+          question: 'Именно этот цвет присутствует в описании свадьбы в сериале "Игра Престолов", закончившейся убийством невесты, жениха а также всех присутсвующих гостей с его стороны.',
+          type: 'text',
           answer: null,
           isActive: true
         },
         {
           cost: 400,
-          question: 'Сильное, но преодолимое желание помыть пол',
-          questionType: 'text',
+          question: 'Этот фильм был признан одним из самых грязных и отвратительных фильмов 20 века. В числе прочих мерзостей зрителю представляется возможность лицезреть секс мужчины со свиньёй. Как называется этот фильм?',
+          type: 'text',
           answer: null,
           isActive: true
         },
         {
           cost: 500,
-          question: 'Грязь, которую, сначала кажется, невозможно отмыть',
-          questionType: 'text',
+          question: 'Свадьба этих особ королевской крови предшествовала и стала одним из поводов массовой резни, ставшей нарицательной. Считается, что даже король стрелял в людей из своей аркебузы. Назовите любую из сочетавшихся браком особ.',
+          type: 'text',
           answer: null,
           isActive: true
         }

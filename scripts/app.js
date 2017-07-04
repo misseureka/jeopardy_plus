@@ -75,6 +75,7 @@
       question.isActive = false;
       $scope.showQuestionModal = true;
       $scope.currentQuestion = question;
+      $scope.currentQuestion.category = $scope.board[parentIndex].category
       $scope.currentScore = question.cost;
       JeoSocket.emit('question_active', true);
     };

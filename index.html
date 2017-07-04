@@ -32,6 +32,12 @@
             <div ng-show="currentQuestion.type=='img'">
               <img ng-src="{{currentQuestion.media}}" />
             </div>
+            <div ng-show="currentQuestion.type=='mp4'">
+              <!-- video controls autoplay>
+                <source ng-src="{{currentQuestion.media}}" type="video/mp4">
+              </video -->
+              <a href='{{currentQuestion.media}} target="_blank"'>Watch in a new tab</a>
+            </div>
             <p>{{currentQuestion.question}}</p>
         </div>
         <div class="modal-footer">
@@ -54,6 +60,12 @@
         <div class="modal-body">
           <div ng-show="currentAnswer.type=='img'">
             <img ng-src="{{currentAnswer.media}}" />
+          </div>
+          <div ng-show="currentAnswer.type=='mp4'">
+            <!-- video controls>
+              <source ng-src="{{currentAnswer.media}}" type="video/mp4">
+            </video -->
+            <a href='{{currentAnswer.media}}' target="_blank">Watch in a new tab</a>
           </div>
         </div>
         <div class="modal-footer">
