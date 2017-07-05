@@ -71,6 +71,7 @@ async def login_message(sid, message):
     if team_name == 'host':
         Jeopardy.is_host_connected = True
         Jeopardy.host_sid = sid
+        Jeopardy.players = []
     else:
         player = Player(team_name, 0, sid)
         Jeopardy.players.append(player)

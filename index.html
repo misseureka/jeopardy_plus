@@ -18,10 +18,12 @@
           {{item.category}}
         </div>
         <!-- TODO: angular - disable div, not fieldset -->
-        <div class="column column-question" ng-repeat="question in item.questions"
-                ng-click="question.isActive && showQuestion($parent.$index, $index)" ng-disabled="!question.isActive">
-          {{question.isActive? question.cost : ""}}
-        </div>
+        <button class="btn btn-info column column-question"
+                ng-repeat="question in item.questions"
+                ng-click="question.isActive && showQuestion($parent.$index, $index)"
+                ng-disabled="!question.isActive">
+          {{question.cost}}
+        </button>
       </div>
     </div>
 
@@ -42,13 +44,12 @@
             <p ng-show="currentQuestion.type=='text'">{{currentQuestion.question}}</p>
         </div>
         <div class="modal-footer">
-          <p>Отвечает...</p>
-          <p>{{currentPlayer}}</p>
-          <div ng-show="!!currentPlayer">
+          <p ng-if="currentPlayer" class="team-name">{{currentPlayer}}</p>
+          <div ng-show="!!currentPlayer" class="btn-wrapper">
               <button class="btn btn-success" ng-click="answer(currentPlayer, currentQuestion.cost, true)">Это правильный ответ!</button>
               <button class="btn btn-danger" ng-click="answer(currentPlayer, currentQuestion.cost, false)">А это нет :-(</button>
           </div>
-          <div ng-show="!currentPlayer">
+          <div ng-show="!currentPlayer" class="btn-wrapper">
               <button class="btn btn-default" ng-click="answer(null, 0, null)">Нет ответа</button>
           </div>
         </div>
@@ -110,7 +111,7 @@
     <footer ng-show="isMainBoard" class="footer">
       <div class="title">СЧЁТ</div>
       <div ng-repeat="player in players">
-          {{player.name}} - {{player.score}}
+          {{player.name}} {{player.score}}
       </div>
     </footer>
   </body>
