@@ -38,8 +38,8 @@
       <file leaf-file-name="app.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="538">
-              <caret line="107" column="50" lean-forward="false" selection-start-line="107" selection-start-column="50" selection-end-line="107" selection-end-column="50" />
+            <state relative-caret-position="294">
+              <caret line="84" column="97" lean-forward="false" selection-start-line="84" selection-start-column="97" selection-end-line="84" selection-end-column="97" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
               </folding>
@@ -56,13 +56,13 @@
       <find>showQ</find>
       <find>showQu</find>
       <find>emit</find>
-      <find>start</find>
       <find>player</find>
       <find>login</find>
       <find>update_score</find>
       <find>push_button</find>
       <find>someone_already_answering</find>
       <find>player_pushed_button</find>
+      <find>start</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -493,8 +493,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="538">
-          <caret line="107" column="50" lean-forward="false" selection-start-line="107" selection-start-column="50" selection-end-line="107" selection-end-column="50" />
+        <state relative-caret-position="294">
+          <caret line="84" column="97" lean-forward="false" selection-start-line="84" selection-start-column="97" selection-end-line="84" selection-end-column="97" />
           <folding>
             <element signature="e#0#23#0" expanded="true" />
           </folding>

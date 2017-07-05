@@ -82,6 +82,7 @@ async def login_message(sid, message):
 async def host_started_game_message(sid, message):
     assert sid == Jeopardy.host_sid
     Jeopardy.is_game_started = True
+    await sio.emit('update_board_players', Jeopardy.get_players_payload(), sid=Jeopardy.host_sid)
     await sio.emit('game_started', namespace='')
 
 
