@@ -1,6 +1,7 @@
 <html ng-app="app" >
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <script type="text/javascript" src="scripts/angular.js"></script>
     <script type="text/javascript" src="scripts/schema.js"></script>
     <script type="text/javascript" src="scripts/app.js"></script>
@@ -17,20 +18,20 @@
           {{item.category}}
         </div>
         <!-- TODO: angular - disable div, not fieldset -->
-        <fieldset class="column column-question" ng-repeat="question in item.questions"
-                ng-click="showQuestion($parent.$index, $index)" ng-disabled="!question.isActive">
+        <div class="column column-question" ng-repeat="question in item.questions"
+                ng-click="question.isActive && showQuestion($parent.$index, $index)" ng-disabled="!question.isActive">
           {{question.isActive? question.cost : ""}}
-        </fieldset>
+        </div>
       </div>
     </div>
 
-    <div modal="showQuestionModal" close="cancel()">
+    <div modal="showQuestionModal" close="cancel()" class="view-question">
         <div class="modal-header">
             <h4>{{currentQuestion.category}} {{currentQuestion.cost}}</h4>
         </div>
         <div class="modal-body">
             <div ng-show="currentQuestion.type=='img'">
-              <img ng-src="{{currentQuestion.media}}" />
+              <img ng-src="{{currentQuestion.media}}" class="question-img"/>
             </div>
             <div ng-show="currentQuestion.type=='mp4'">
               <!-- video controls autoplay>
@@ -38,7 +39,7 @@
               </video -->
               <a href='{{currentQuestion.media}} target="_blank"'>Watch in a new tab</a>
             </div>
-            <p>{{currentQuestion.question}}</p>
+            <p ng-show="currentQuestion.type=='text'">{{currentQuestion.question}}</p>
         </div>
         <div class="modal-footer">
           <p>Отвечает...</p>
@@ -53,13 +54,13 @@
         </div>
     </div>
 
-    <div modal="showAnswerModal" close="cancel()">
+    <div modal="showAnswerModal" close="cancel()" class="view-answer">
         <div class="modal-header">
           <h4>Ответ</h4>
         </div>
         <div class="modal-body">
           <div ng-show="currentAnswer.type=='img'">
-            <img ng-src="{{currentAnswer.media}}" />
+            <img ng-src="{{currentAnswer.media}}" class="answer-img"/>
           </div>
           <div ng-show="currentAnswer.type=='mp4'">
             <!-- video controls>
@@ -74,7 +75,7 @@
     </div>
 
 
-    <div modal="showLogin">
+    <div modal="showLogin" class="view-login">
         <div class="modal-header">
             <h4>Имя команды</h4>
         </div>
@@ -82,11 +83,11 @@
             <input type="text" ng-model="teamName"/>
         </div>
         <div class="modal-footer">
-          <button class="btn btn-success" ng-click="login(teamName)">"Это имя нашей команды</button>
+          <button class="btn btn-success" ng-click="login(teamName)">Это имя нашей команды</button>
         </div>
     </div>
-    <div modal="waitForStart">
-        <p>Ожидаем...</p>
+    <div modal="waitForStart" class="view-waiting">
+        <p>Ожидайте, пока подключатся остальные игроки</p>
     </div>
 
     <div modal="showStartButton">
@@ -95,19 +96,19 @@
       </div>
     </div>
 
-    <div ng-show="isPlayer && !showLogin && (!waitForStart || gameRunning)">
-        <div>
+    <div ng-show="isPlayer && !showLogin && (!waitForStart || gameRunning)" class="view-team">
+        <div class="team-wrapper">
           {{teamName}}
         </div>
-        <div>
+        <div class="button-wrapper">
             <button type="button" ng-click="push_button()" class="btn btn-success">Есть ответ</button>
         </div>
-        <div>
-            <p>Ваш счёт: {{playerTotal}}</p>
+        <div class="score-wrapper">
+            Ваш счёт: {{playerTotal}}
         </div>
     </div>
     <footer ng-show="isMainBoard" class="footer">
-      <div><p>СЧЁТ</p></div>
+      <div class="title">СЧЁТ</div>
       <div ng-repeat="player in players">
           {{player.name}} - {{player.score}}
       </div>

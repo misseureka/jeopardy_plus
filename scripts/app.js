@@ -91,12 +91,12 @@
     };
 
     $scope.answer = (currentPlayer, questionScore, correct) => {
+      var answer = $scope.currentQuestion.answer;
       if (correct === null && questionScore === 0 && currentPlayer == null) {
           console.log('Nobody knows...');
           JeoSocket.emit('question_answered', {'currentScore': 0, 'currentPlayer': null, 'currentSid': null});
           $scope.currentScore = 0;
           $scope.currentPlayer = null;
-          var answer = $scope.currentQuestion.answer;
           $scope.currentQuestion = null;
           $scope.showQuestionModal = false;
           JeoSocket.emit('question_active', false);
@@ -114,6 +114,9 @@
              $scope.currentQuestion = null;
              $scope.currentScore = 0;
              JeoSocket.emit('question_active', false);
+             if (answer){
+               showAnswer(answer);
+             }
           }
           $scope.currentSid = null;
           $scope.currentPlayer = null;

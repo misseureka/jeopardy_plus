@@ -1,4 +1,3 @@
-from asyncio import Lock
 from aiohttp import web
 import io
 import socketio
@@ -6,7 +5,6 @@ import socketio
 sio = socketio.AsyncServer(async_mode='aiohttp')
 app = web.Application()
 sio.attach(app)
-lock = Lock()
 
 
 class Player(object):
@@ -22,19 +20,24 @@ class Jeopardy(object):
     is_game_started = False
     is_host_connected = False
     host_sid = None
-    current_question_answered = False
+    someone_already_answering = False
     question_active = False
+    players_already_tried = []
 
     @classmethod
-    def push_button(cls):
-        if lock.locked() or cls.current_question_answered or not cls.question_active:
+    def push_button(cls, player_name):
+        if not cls.question_active or cls.someone_already_answering:
+            print("Someone is already answering, perhaps...")
+            return False
+        if player_name in cls.players_already_tried:
+            print("We've already tried, sorry")
             return False
 
-        with (yield from lock):
-            if not cls.current_question_answered:
-                cls.current_question_answered = True
-                return True
-        return False
+        print("We're good")
+        cls.someone_already_answering = True
+        cls.players_already_tried.append(player_name)
+        print("Now we are answering")
+        return True
 
     @classmethod
     def get_player(cls, sid):
@@ -48,16 +51,22 @@ class Jeopardy(object):
                 cls.players[idx].score += score
                 return cls.players[idx].score
 
+    @classmethod
+    def get_players_payload(cls):
+        players = []
+        for player in Jeopardy.players:
+            p = {'name': player.name,
+                 'score': player.score}
+            players.append(p)
+        return players
 
 async def index(request):
-    print('Index called')
     with io.open('index.html', 'r', encoding='utf8') as f:
         return web.Response(text=f.read(), content_type='text/html')
 
 
 @sio.on('login', namespace='')
 async def login_message(sid, message):
-    print('Player logged in.')
     team_name = message['teamName']
     if team_name == 'host':
         Jeopardy.is_host_connected = True
@@ -66,21 +75,11 @@ async def login_message(sid, message):
         player = Player(team_name, 0, sid)
         Jeopardy.players.append(player)
         if Jeopardy.host_sid:
-            players = []
-            for player in Jeopardy.players:
-                p = {'name': player.name,
-                     'score': player.score}
-                players.append(p)
-            await sio.emit('update_board_players', players, sid=Jeopardy.host_sid)
-    if len(Jeopardy.players):
-        print('==> Current players are: ')
-        for player in Jeopardy.players:
-            print('{} {} {}'.format(player.name, player.score, player.sid))
+            await sio.emit('update_board_players', Jeopardy.get_players_payload(), sid=Jeopardy.host_sid)
 
 
 @sio.on('host_started_game', namespace='')
 async def host_started_game_message(sid, message):
-    print('Host started THE game.')
     assert sid == Jeopardy.host_sid
     Jeopardy.is_game_started = True
     await sio.emit('game_started', namespace='')
@@ -89,27 +88,25 @@ async def host_started_game_message(sid, message):
 @sio.on('question_answered', namespace='')
 async def host_accepted_question(sid, message):
     assert sid == Jeopardy.host_sid
-    Jeopardy.current_question_answered = False
-    print('Host accepted question with data {}'.format(message))
     score = message['currentScore']
     if not score:
         return
     player_sid = message['currentSid']
     total = Jeopardy.update_score(player_sid, int(score))
     player_name = message['currentPlayer']
+    Jeopardy.someone_already_answering = False
     await sio.emit('update_score', {'total': total, 'playerName': player_name}, sid=player_sid)
-    players = []
-    for player in Jeopardy.players:
-        p = {'name': player.name,
-             'score': player.score}
-        players.append(p)
-    await sio.emit('update_board_players', players, sid=Jeopardy.host_sid)
+    await sio.emit('update_board_players', Jeopardy.get_players_payload(), sid=Jeopardy.host_sid)
 
 
 @sio.on('question_active', namespace='')
 async def question_active(sid, active):
     assert sid == Jeopardy.host_sid
     Jeopardy.question_active = active
+    if not active:
+        Jeopardy.players_already_tried = []
+        Jeopardy.someone_already_answering = False
+    await sio.emit('useless_event_to_patch', {})
 
 
 @sio.on('player_pushed_button', namespace='')
@@ -117,14 +114,14 @@ async def player_pushed_button(sid, message):
     if not Jeopardy.question_active:
         return False
 
-    print(message)
     p = Jeopardy.get_player(sid)
-    # FIXME: check if there is active question, do nothing otherwise
-    if Jeopardy.push_button():
+    print(p.name)
+    r = Jeopardy.push_button(p.name)
+    if r:
         print('Player {} was the first one'.format(p.name))
         await sio.emit('player_ready', {'sid': p.sid, 'name': p.name}, skip_sid=sid)
-        return True
-    return False
+    else:
+        print('Player {} is a looser'.format(p.name))
 
 
 @sio.on('disconnect request', namespace='')

@@ -1,11 +1,99 @@
+html, body{
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body *{
+  box-sizing: border-box;
+}
+
+.view-login,
+.view-waiting,
+.view-team{
+  width: 96%;
+  height: 96%;
+  top: 2%;
+  left: 2%;
+  margin: 0;
+}
+
+.view-login *,
+.view-waiting *,
+.view-team *{
+  font-size: 1rem;
+}
+
+.view-login .modal-footer{
+  background: none;
+}
+
+.view-login .modal-body input,
+.view-login .modal-footer .btn{
+  text-align: left;
+  width: 100%;
+  height: 4rem;
+}
+
+.view-login .modal-footer .btn{
+  text-align: center;
+}
+
+.view-waiting p{
+  font-size: 1rem;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.view-team{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: stretch;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.view-team p{
+  font-size: 1rem;
+}
+
+.view-team .team-wrapper,
+.view-team .score-wrapper{
+  height: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.view-team .button-wrapper{
+  height: 60%;
+}
+
+.view-team .button-wrapper .btn{
+  width: 100%;
+  height: 100%;
+}
+
+.view-question .question-img,
+.view-answer .answer-img{
+  height: 100%;
+  margin: 0 auto;
+  display: block;
+}
+
 .board{
   font-size: 30px;
-  margin: 15px;
+  margin: 2% 2% 0 2%;
+  height: 80%;
 }
 
 .category-row {
-  width: 90%;
-  height: 18%;
+  width: 100%;
+  height: 20%;
   display: flex;
 }
 
@@ -32,9 +120,11 @@
 
 .footer {
   position: relative;
-  height: 100px;
-  clear:both;
-  padding-top:60px;
+  height: 16%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 25px;
 }
 
 .column-category:first-child{
